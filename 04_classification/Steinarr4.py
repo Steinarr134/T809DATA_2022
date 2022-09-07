@@ -108,7 +108,17 @@ def maximum_aposteriori(
     priors = []
     for c in classes:
         priors.append(np.count_nonzero(train_targets == c) / len(train_targets))
-    
+    posterior = maximum_likelihood(train_features, train_targets, test_features, classes)
+
+    return posterior*np.array(priors)
+
+def confusion_matrix(classes, predictions, actual):
+    matrix = np.zeros((len(classes), len(classes)), int)
+    for i, a in enumerate(classes):
+        for j, p in enumerate(classes):
+            matrix[j, i] = np.count_nonzero(predictions[np.where(actual == a)] == p)
+
+    return matrix
 
 
 if __name__ == '__main__':
@@ -116,6 +126,33 @@ if __name__ == '__main__':
     features, targets, classes = load_iris()
     (train_features, train_targets), (test_features, test_targets) \
         = split_train_test(features, targets, train_ratio=0.6)
+
+
+    print(f"\n\n{'-' * 20}\n\t Independent\n")
+    # remove some train features from class 1
+    if True:
+        np.random.seed(1234)
+        n = 1000
+        features = np.random.randint(0, 2, (n, 10))
+        targets = np.random.randint(0, 4, n)
+        classes = np.array([0, 1, 2, 3])
+
+        # remove two thirds of datapoints when the die threw 0 or 1
+        # thus making the die unfair
+        some_positions = np.where(targets <= 1)[0]
+        positions2remove = some_positions[some_positions.shape[0] // 4:]
+        targets = np.delete(targets, positions2remove)
+        features = np.delete(features, positions2remove, axis=0)
+
+        # c1_positions = np.where(targets == 1)[0]
+        # positions2remove = c1_positions[c1_positions.shape[0] // 3:]
+        # targets = np.delete(targets, positions2remove)
+        # features = np.delete(features, positions2remove, axis=0)
+
+        (train_features, train_targets), (test_features, test_targets) \
+            = split_train_test(features, targets, train_ratio=0.6)
+
+
     print(f"\n\n{'-' * 20}\n\t Part 1.1 \n")
     print(f"{mean_of_class(train_features, train_targets, 0)=}")
 
@@ -135,11 +172,52 @@ if __name__ == '__main__':
     likelihoods = maximum_likelihood(train_features, train_targets, test_features, classes)
     print(f"{predict(likelihoods)}")
 
-    print(f"\n\n{'-' * 20}\n\t Part 2.1 \n")
+    print(f"\n\n{'-' * 20}\n\t Part 2\n")
+    post_likelihoods = maximum_aposteriori(train_features, train_targets, test_features, classes)
+    print(predict(likelihoods) == test_targets)
+    print(confusion_matrix(classes, test_targets, predict(likelihoods)))
+    print(confusion_matrix(classes, test_targets, predict(post_likelihoods)))
 
 
+    def format_matrix(matrix, environment="bmatrix", formatter=str):
+        """Format a matrix using LaTeX syntax"""
 
+        if not isinstance(matrix, np.ndarray):
+            try:
+                matrix = np.array(matrix)
+            except Exception:
+                raise TypeError("Could not convert to Numpy array")
 
+        if len(shape := matrix.shape) == 1:
+            matrix = matrix.reshape(1, shape[0])
+        elif len(shape) > 2:
+            raise ValueError("Array must be 2 dimensional")
+
+        body_lines = [" & ".join(map(formatter, row)) for row in matrix]
+
+        body = "\\\\\n".join(body_lines)
+        return f"""\\begin{{{environment}}}
+    {body}
+    \\end{{{environment}}}"""
+
+    print(format_matrix(confusion_matrix(classes, test_targets, predict(likelihoods))))
+    print(format_matrix(confusion_matrix(classes, test_targets, predict(post_likelihoods))))
+    print(np.count_nonzero(test_targets == predict(likelihoods))/test_targets.shape[0])
+    print(np.count_nonzero(test_targets == predict(post_likelihoods))/test_targets.shape[0])
+
+    # print(f"\n\n{'-' * 20}\n\t Independent\n")
+
+    # # remove some train features from class 1
+    # if True:
+    #     c1_positions = np.where(train_targets == 1)[0]
+    #     positions2remove = c1_positions[c1_positions.shape[0] // 3:]
+    #     train_targets = np.delete(train_targets, positions2remove)
+    #     train_features = np.delete(train_features, positions2remove, axis=0)
+    #     c1_positions = np.where(test_targets == 1)[0]
+    #     positions2remove = c1_positions[c1_positions.shape[0] // 3:]
+    #     test_targets = np.delete(test_targets, positions2remove)
+    #     test_features = np.delete(test_features, positions2remove, axis=0)
+    #     print(train_targets)
 
 
 

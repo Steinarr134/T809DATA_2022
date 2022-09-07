@@ -44,8 +44,8 @@ def update_sequence_mean(
     '''
     return mu + (x - mu)/n
 
-def gen_sequence_estimation(mean = np.array([0, 1, -1])):
-    data = gen_data(100, 3, mean, np.sqrt(3))
+def gen_sequence_estimation(mean = np.array([0, 0, 0])):
+    data = gen_data(100, 3, mean, 1)
     estimates = [np.array([0, 0, 0])]
     for i in range(data.shape[0]):
         estimates.append(update_sequence_mean(estimates[i], data[i], i+1))
@@ -53,6 +53,7 @@ def gen_sequence_estimation(mean = np.array([0, 1, -1])):
 
 def _plot_sequence_estimate():
     # generate sequence estimation in a seperate function so it can be reused later
+    # mean = np.array([0, 1, -1])
     estimates = gen_sequence_estimation()
     plt.plot([e[0] for e in estimates], label='First dimension')
     plt.plot([e[1] for e in estimates], label='Second dimension')
@@ -154,6 +155,7 @@ if __name__ == "__main__":
     # bar_per_axis(X)
 
     print(f"\n\n{'-' * 20}\n\t Part 1.4 \n")
+    
     mean = np.mean(X, 0)
     new_x = gen_data(1, 3, np.array([0, 0, 0]), 1)
     print(f"{update_sequence_mean(mean, new_x, X.shape[0])}")
