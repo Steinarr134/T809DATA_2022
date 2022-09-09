@@ -61,14 +61,7 @@
 
 }
 \section*{Section 2.2}
-\begin{quoting}
-\begin{itemize}
-    \item  What is the accuracy of each method?
-    \item How are the confusion matrices? Use your own code from assignment 1 and compare the matrices.
-    \item How do you interpret the differences? Why is/is not a difference in accuracy?
-    
-\end{itemize}
-\end{quoting}
+
 
 The accuracy of both method is the same, 98\%. The confusion matrices are also identical:\\
 \begin{center}
@@ -87,25 +80,31 @@ As an example of such a dataset I created a dataset with 1000 simulations of fli
 
 \begin{minipage}[0]{0.5\textwidth}
 Using maximum likelihood estimation:\\
+\\
 CM_{MLE} = \begin{bmatrix}
     4 & 6 & 5 & 10\\
     4 & 1 & 9 & 11\\
     20 & 15 & 24 & 44\\
     13 & 22 & 31 & 34
 \end{bmatrix}\\
+\\
 Accuracy = 25\%
  \end{minipage}
 \begin{minipage}[0.5\textwidth]{0.5\textwidth}
 Using a posteriori classification:\\
+\\
 CM_{MAP}\begin{bmatrix}
     1 & 1 & 15 & 8\\
     0 & 0 & 16 & 9\\
     6 & 0 & 52 & 45\\
     3 & 4 & 51 & 42
 \end{bmatrix}\\
+\\
 Accuracy = 37.5\%
  \end{minipage}
- 
- As can be seen the a posteriori classification doesn't waste guesses on the unlikely sides of the unfair die, making it more likely to guess correctly.
+ \newline
+ \\
+ \\
+ As can be seen the a posteriori classification doesn't waste many guesses on the unlikely sides of the unfair die, making it more likely to guess correctly.
 \end{document}
 
