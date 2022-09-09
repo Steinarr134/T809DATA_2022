@@ -69,8 +69,42 @@ The batch estimate is expected to be around the mean but because of the randomne
 What happens if the mean value changes (perhaps slowly) with time? What if $\mu =(0,1,-1)$ moves to $\mu=(1,-1,0)$ in 500 time ticks? How would we track the mean? Some sort of a forgetting could be added to the update equation. How would that be done?
 \end{quoting}
 
-One way would be to only take the mean of the last M data points. This would be a moving average filter and would require the program to remember the last M data points which, depending on the program implementation might be less than ideal. Another method better suited for our implementation might be to change the update equation to be 
+One way would be to only take the mean of the last M data points. This would be a moving average filter and would require the program to remember the last M data points which, depending on the program implementation, might be less than ideal. Another method better suited for our implementation might be to change the update equation to be 
 \[\mu_{ML}^{N} = \mu_{ML}^{N-1} + \frac{1}{min(N, M)}(x_n - \mu_{ML}^{N-1})\]
-Where M would be an appropriately chosen constant. This would prevent each successive update to having a smaller and smaller affect. Instead, every update would be able to have an appreciable affect.
+Where M would be an appropriately chosen constant. This would prevent each successive update from having a smaller and smaller affect. Instead, every update would be able to have an appreciable affect.
+
+In figure 1 we can see how such a system might behave when the mean is changing. M was selected as 75 by trial and error and, as can be seen, the graph follows the changing mean. The error of this sequential estimate hovers around 0.1. By choosing a smaller M the estimate follows the changing mean more closely but is more prone to fluctuate from random noise. Choosing a larger M results less noise in the estimation but the estimate will always lag in time.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{03_sequential_estimation/indep_1_m75.png}
+    \caption{Sequential estimation of a dataset with a changing mean.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{03_sequential_estimation/indep_2_m75.png}
+    \caption{Error of the above estimation.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{03_sequential_estimation/indep_1_m25.png}
+    \caption{Smaller M}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{03_sequential_estimation/indep_2_m25.png}
+    \caption{Error of the above estimation.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{03_sequential_estimation/indep_1_m125.png}
+    \caption{Larger M}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{03_sequential_estimation/indep_2_m125.png}
+    \caption{Error of the above estimation.}
+\end{figure}
+
 \end{document}
 
