@@ -44,7 +44,7 @@ def update_sequence_mean(
     '''
     return mu + (x - mu)/n
 
-def gen_sequence_estimation(mean = np.array([0, 0, 0])):
+def gen_sequence_estimation(mean = np.array([0, -1, 1])):
     data = gen_data(100, 3, mean, 1)
     estimates = [np.array([0, 0, 0])]
     for i in range(data.shape[0]):
@@ -132,7 +132,7 @@ def _plot_changing_sequence_estimate(m=75, show=True):
     plt.figure()
     plt.title(f"Mean Square Error, changing mean, {m=}")
     plt.plot(sq_e)
-    # plt.ylim(0, 0.25)
+    plt.ylim(0, 0.5)
     if show:
         plt.show()
 
@@ -170,5 +170,5 @@ if __name__ == "__main__":
     # _plot_changing_sequence_estimate(50, 0)
     # _plot_changing_sequence_estimate(150, 0)
     # plt.show()
-    _plot_changing_sequence_estimate()
+    _plot_changing_sequence_estimate(m=125)
 

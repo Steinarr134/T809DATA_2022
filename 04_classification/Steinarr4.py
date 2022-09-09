@@ -130,7 +130,7 @@ if __name__ == '__main__':
 
     print(f"\n\n{'-' * 20}\n\t Independent\n")
     # remove some train features from class 1
-    if True:
+    if False:
         np.random.seed(1234)
         n = 1000
         features = np.random.randint(0, 2, (n, 10))
