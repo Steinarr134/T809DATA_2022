@@ -127,9 +127,7 @@ if __name__ == '__main__':
     (train_features, train_targets), (test_features, test_targets) \
         = split_train_test(features, targets, train_ratio=0.6)
 
-
-    print(f"\n\n{'-' * 20}\n\t Independent\n")
-    # remove some train features from class 1
+    # set to True for Indepenent section
     if False:
         np.random.seed(1234)
         n = 1000
@@ -143,11 +141,6 @@ if __name__ == '__main__':
         positions2remove = some_positions[some_positions.shape[0] // 4:]
         targets = np.delete(targets, positions2remove)
         features = np.delete(features, positions2remove, axis=0)
-
-        # c1_positions = np.where(targets == 1)[0]
-        # positions2remove = c1_positions[c1_positions.shape[0] // 3:]
-        # targets = np.delete(targets, positions2remove)
-        # features = np.delete(features, positions2remove, axis=0)
 
         (train_features, train_targets), (test_features, test_targets) \
             = split_train_test(features, targets, train_ratio=0.6)
