@@ -313,7 +313,8 @@ if __name__ == '__main__':
     #     np.save(f, np.array(run50))
     with open("05_backprop/indep_data_50.npy", 'rb') as f:
         results = np.load(f)
-    results = np.log(1000)*(np.average(results, axis=0) - 2*np.std(results, axis=0))/np.log(iterations)
+    results = (np.average(results, axis=0) - 2*np.std(results, axis=0))
+
     # results = np.std(results, axis=0)
     print(results)
     print(etas[results.argmax()//results.shape[1]],
@@ -324,7 +325,7 @@ if __name__ == '__main__':
 
     c = ax.pcolormesh(iterations, etas, results, cmap='RdBu', vmin=0.5, vmax=1, shading="nearest")
 
-    ax.set_title('Heatmap of accuracy, changing eta and number of iterations \n log(1000)*(avg-2*std)/log(N) \nover 50 different train/test splits')
+    ax.set_title('Heatmap of accuracy, changing eta and number of iterations \n avg - 2*std over 50 different train/test splits')
     
     ax.set_xlabel("Number of Iterations")
     ax.set_ylabel("Learning rate [eta]")
