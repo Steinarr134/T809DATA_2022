@@ -2,7 +2,7 @@
 
 from typing import Union
 import numpy as np
-
+from matplotlib import pyplot as plt
 from tools import load_iris, split_train_test
 
 
@@ -177,140 +177,158 @@ if __name__ == '__main__':
     (train_features, train_targets), (test_features, test_targets) = \
         split_train_test(features, targets)
     # initialize the random generator to get repeatable results
-    np.random.seed(1234)
+    # np.random.seed(1234)
 
-    # Take one point:
-    x = train_features[0, :]
-    K = 3  # number of classes
-    M = 10
-    D = 4
-    # Initialize two random weight matrices
-    W1 = 2 * np.random.rand(D + 1, M) - 1
-    W2 = 2 * np.random.rand(M + 1, K) - 1
-    y, z0, z1, a1, a2 = ffnn(x, M, K, W1, W2)
+    # # Take one point:
+    # x = train_features[0, :]
+    # K = 3  # number of classes
+    # M = 10
+    # D = 4
+    # # Initialize two random weight matrices
+    # W1 = 2 * np.random.rand(D + 1, M) - 1
+    # W2 = 2 * np.random.rand(M + 1, K) - 1
+    # y, z0, z1, a1, a2 = ffnn(x, M, K, W1, W2)
 
-    print(f"{y=}\n{z0=}\n{z1=}\n{a1=}\n{a2=}")
-
-
-    print(f"\n\n{'-' * 20}\n\t Section 1.4\n")
-    # initialize random generator to get predictable results
-    np.random.seed(42)
-
-    K = 3  # number of classes
-    M = 6
-    D = train_features.shape[1]
-
-    x = features[0, :]
-
-    # create one-hot target for the feature
-    target_y = np.zeros(K)
-    target_y[targets[0]] = 1.0
-
-    # Initialize two random weight matrices
-    W1 = 2 * np.random.rand(D + 1, M) - 1
-    W2 = 2 * np.random.rand(M + 1, K) - 1
-
-    y, dE1, dE2 = backprop(x, target_y, M, K, W1, W2)
-
-    print(f"{y=}\n{dE1=}\n{dE2=}")
+    # print(f"{y=}\n{z0=}\n{z1=}\n{a1=}\n{a2=}")
 
 
-    print(f"\n\n{'-' * 20}\n\t Section 2.1\n")
-    # initialize the random seed to get predictable results
-    np.random.seed(1234)
+    # print(f"\n\n{'-' * 20}\n\t Section 1.4\n")
+    # # initialize random generator to get predictable results
+    # np.random.seed(42)
 
-    K = 3  # number of classes
-    M = 6
-    D = train_features.shape[1]
+    # K = 3  # number of classes
+    # M = 6
+    # D = train_features.shape[1]
 
-    # Initialize two random weight matrices
-    W1 = 2 * np.random.rand(D + 1, M) - 1
-    W2 = 2 * np.random.rand(M + 1, K) - 1
-    W1tr, W2tr, Etotal, misclassification_rate, last_guesses = train_nn(
-        train_features[:20, :], train_targets[:20], M, K, W1, W2, 500, 0.1)
+    # x = features[0, :]
 
-    print(f"W1tr = \n{W1tr}\n")
-    print(f"W2tr = \n{W2tr}\n")
-    print(f"Etotal = \n{Etotal[:10]}\n...\n{Etotal[-10:]}\n")
-    print(
-        f"misclassification_rate = \n{misclassification_rate[:10]}\n...\n{misclassification_rate[-10:]}\n")
+    # # create one-hot target for the feature
+    # target_y = np.zeros(K)
+    # target_y[targets[0]] = 1.0
 
-    print(f"last_guesses = \n{last_guesses[:10]}\n...\n{last_guesses[-10:]}\n")
-    print(train_targets[:20])
+    # # Initialize two random weight matrices
+    # W1 = 2 * np.random.rand(D + 1, M) - 1
+    # W2 = 2 * np.random.rand(M + 1, K) - 1
 
-    print(f"\n\n{'-' * 20}\n\t Section 2.2\n")
-    W1tr, W2tr, Etotal, misclassification_rate, last_guesses = train_nn(
-        train_features, train_targets, M, K, W1, W2, 500, 0.1)
-    guesses = test_nn(test_features, 0, 0, W1tr, W2tr)
-    print(f"{guesses=}")
+    # y, dE1, dE2 = backprop(x, target_y, M, K, W1, W2)
 
-    print(f"\n\n{'-' * 20}\n\t Section 2.3\n")
-    accuracy = np.count_nonzero(test_targets==guesses)/len(guesses)
+    # print(f"{y=}\n{dE1=}\n{dE2=}")
 
-    matrix = np.zeros((3, 3), int)
-    for i, a in enumerate(classes):
-        for j, p in enumerate(classes):
-            matrix[j, i] = np.count_nonzero(guesses[np.where(test_targets == a)] == p)
-    print(f"{accuracy=:.1%}")
-    print(f"Confusion matrix = \n{matrix}")
 
-    def format_matrix(matrix, environment="bmatrix", formatter=str):
-        """Format a matrix using LaTeX syntax"""
+    # print(f"\n\n{'-' * 20}\n\t Section 2.1\n")
+    # # initialize the random seed to get predictable results
+    # np.random.seed(1234)
 
-        if not isinstance(matrix, np.ndarray):
-            try:
-                matrix = np.array(matrix)
-            except Exception:
-                raise TypeError("Could not convert to Numpy array")
+    # K = 3  # number of classes
+    # M = 6
+    # D = train_features.shape[1]
 
-        if len(shape := matrix.shape) == 1:
-            matrix = matrix.reshape(1, shape[0])
-        elif len(shape) > 2:
-            raise ValueError("Array must be 2 dimensional")
+    # # Initialize two random weight matrices
+    # W1 = 2 * np.random.rand(D + 1, M) - 1
+    # W2 = 2 * np.random.rand(M + 1, K) - 1
+    # W1tr, W2tr, Etotal, misclassification_rate, last_guesses = train_nn(
+    #     train_features[:20, :], train_targets[:20], M, K, W1, W2, 500, 0.1)
 
-        body_lines = [" & ".join(map(formatter, row)) for row in matrix]
+    # print(f"W1tr = \n{W1tr}\n")
+    # print(f"W2tr = \n{W2tr}\n")
+    # print(f"Etotal = \n{Etotal[:10]}\n...\n{Etotal[-10:]}\n")
+    # print(
+    #     f"misclassification_rate = \n{misclassification_rate[:10]}\n...\n{misclassification_rate[-10:]}\n")
 
-        body = "\\\\\n".join(body_lines)
-        return f"""\\begin{{{environment}}}
-    {body}
-    \\end{{{environment}}}"""
-    print(format_matrix(matrix))
+    # print(f"last_guesses = \n{last_guesses[:10]}\n...\n{last_guesses[-10:]}\n")
+    # print(train_targets[:20])
 
-    from matplotlib import pyplot as plt
-    plt.plot(Etotal, label="E_total")
-    plt.plot(misclassification_rate, label="misclassification_rate")
-    plt.xlabel("Iterations")
-    plt.legend()
-    plt.show()
+    # print(f"\n\n{'-' * 20}\n\t Section 2.2\n")
+    # W1tr, W2tr, Etotal, misclassification_rate, last_guesses = train_nn(
+    #     train_features, train_targets, M, K, W1, W2, 500, 0.1)
+    # guesses = test_nn(test_features, 0, 0, W1tr, W2tr)
+    # print(f"{guesses=}")
+
+    # print(f"\n\n{'-' * 20}\n\t Section 2.3\n")
+    # accuracy = np.count_nonzero(test_targets==guesses)/len(guesses)
+
+    # matrix = np.zeros((3, 3), int)
+    # for i, a in enumerate(classes):
+    #     for j, p in enumerate(classes):
+    #         matrix[j, i] = np.count_nonzero(guesses[np.where(test_targets == a)] == p)
+    # print(f"{accuracy=:.1%}")
+    # print(f"Confusion matrix = \n{matrix}")
+
+    # def format_matrix(matrix, environment="bmatrix", formatter=str):
+    #     """Format a matrix using LaTeX syntax"""
+
+    #     if not isinstance(matrix, np.ndarray):
+    #         try:
+    #             matrix = np.array(matrix)
+    #         except Exception:
+    #             raise TypeError("Could not convert to Numpy array")
+
+    #     if len(shape := matrix.shape) == 1:
+    #         matrix = matrix.reshape(1, shape[0])
+    #     elif len(shape) > 2:
+    #         raise ValueError("Array must be 2 dimensional")
+
+    #     body_lines = [" & ".join(map(formatter, row)) for row in matrix]
+
+    #     body = "\\\\\n".join(body_lines)
+    #     return f"""\\begin{{{environment}}}
+    # {body}
+    # \\end{{{environment}}}"""
+    # print(format_matrix(matrix))
+
+    # 
+    # plt.plot(Etotal, label="E_total")
+    # plt.plot(misclassification_rate, label="misclassification_rate")
+    # plt.xlabel("Iterations")
+    # plt.legend()
+    # plt.show()
 
 
     print(f"\n\n{'-' * 20}\n\t Independent Section\n")
 
-    def test_performance(eta, iterations, W1, W2):
-        W1tr, W2tr, Etotal, misclassification_rate, last_guesses = train_nn(train_features[:20, :], train_targets[:20], M, K, W1, W2, iterations, eta)
-        guesses = test_nn(test_features, 0, 0, W1tr, W2tr)
-        return np.count_nonzero(test_targets == guesses) / len(guesses)
-
+    # run50 = []
+    # for _ in range(50):
+    #
+    #     (train_features, train_targets), (test_features, test_targets) = \
+    #         split_train_test(features, targets)
+    #
+    #
+    #     def test_performance(eta, iterations, W1, W2):
+    #         W1tr, W2tr, Etotal, misclassification_rate, last_guesses = train_nn(train_features[:20, :], train_targets[:20], M, K, W1, W2, iterations, eta)
+    #         guesses = test_nn(test_features, 0, 0, W1tr, W2tr)
+    #         return np.count_nonzero(test_targets == guesses) / len(guesses)
+    #
     etas = np.arange(0.02, 2.02, 0.05)
     iterations = np.array(range(50, 1000, 50))
-    results = []
-    for eta in etas:
-        print(eta)
-        r =[]
-        for n in iterations:
-            r.append(test_performance(eta, n, W1, W2))
-        results.append(r)
-    results = np.array(results)
-    with open("indep_data2.npy", 'wb') as f:
-        np.save(f, results)
-    # with open("indep_data1.npy", 'rb') as f:
-    #     results = np.load(f)
-
+    #     results = []
+    #     for eta in etas:
+    #         print(eta)
+    #         r =[]
+    #         for n in iterations:
+    #             r.append(test_performance(eta, n, W1, W2))
+    #         results.append(r)
+    #     results = np.array(results)
+    #     run50.append(results)
+    # with open("indep_data_50.npy", 'wb') as f:
+    #     np.save(f, np.array(run50))
+    with open("05_backprop/indep_data_50.npy", 'rb') as f:
+        results = np.load(f)
+    results = np.log(1000)*(np.average(results, axis=0) - 2*np.std(results, axis=0))/np.log(iterations)
+    # results = np.std(results, axis=0)
+    print(results)
+    print(etas[results.argmax()//results.shape[1]],
+          iterations[results.argmax() % results.shape[1]])
+          
     fig, ax = plt.subplots()
 
 
-    c = ax.pcolormesh(iterations, etas, np.power(results, 3), cmap='RdBu', vmin=0, vmax=1)
-    ax.set_title('heatmap of accuracy, changing eta and number of iterations')
+    c = ax.pcolormesh(iterations, etas, results, cmap='RdBu', vmin=0.5, vmax=1, shading="nearest")
+
+    ax.set_title('Heatmap of accuracy, changing eta and number of iterations \n log(1000)*(avg-2*std)/log(N) \nover 50 different train/test splits')
+    
+    ax.set_xlabel("Number of Iterations")
+    ax.set_ylabel("Learning rate [eta]")
+
     # set the limits of the plot to the limits of the data
     # ax.axis([x.min(), x.max(), y.min(), y.max()])
     fig.colorbar(c, ax=ax)
