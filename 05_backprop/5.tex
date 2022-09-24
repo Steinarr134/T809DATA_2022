@@ -108,19 +108,26 @@ To confirm this, another for loop was implemented and the above calculation was 
 \newpage
 It is perhaps more interesting to look at a hybrid of the average and standard deviation, A third plot was made showing the average minus twice the standard deviation. This plot an be seen in Figure \ref{fig:indep50avgstd}. The highest scoring datapoint in the results was ,\(\eta=0.32\) and \(N=900\) with \(avg - 2*std = 0.882\) but an interesting point is ,\(\eta=0.32\) and \(N=600\) with \(avg - 2*std = 0.864\) If we penalize the number of iterations, for example by dividing by \(log(N\) it becomes the highest scoring point. Figure \ref{fig:indep50log} shows \(log(1000)*(avg-2*std)/log(N)\) plotted for the 50 runs.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{05_backprop/indep50avgstd.png}
     \caption{Heatmap showing \(avg - 2*std\) of accuracy over 50 runs}
     \label{fig:indep50avgstd}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{05_backprop/indep50log.png}
     \caption{Heatmap showing \(log(1000)*(avg-2*std)/log(N)\) over 50 runs}
     \label{fig:indep50log}
 \end{figure}
 \\
+
+\newpage
+\section*{Appendix}
+\appendix
+\section{Code}
+
+\lstinputlisting[ label={lst:colormatch}, language=Python, ]{05_backprop/Steinarr5.py}
 
 
 \end{document}
