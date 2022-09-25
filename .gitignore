@@ -1,3 +1,7 @@
+# data
+data/*
+*.pth
+
 # saved numpy arrays
 *.npy
 
