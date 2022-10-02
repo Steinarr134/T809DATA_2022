@@ -66,7 +66,14 @@
 }
 \section*{Section 1}
 I moved the training to my laptops GPU and added significantly more neurons to both the convolutional layers and the first linear layer. The total accuracy of the network increased from 52\% as it was in the training example to 65\%. The misclassification rates for each for each category was plotted and can be seen in Figure \ref{fig:misclass}
-\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{06_neural_networks/1.png}
+    \caption{Misclassification rate of each category}
+    \label{fig:misclass
+    }
+\end{figure}
+\newpage
 The Confusion matrix was calculated.
 \begin{center}
 CM = 
@@ -86,13 +93,15 @@ truck & 38 & 131 & 1 & 14 & 4 & 6 & 2 & 22 & 34 & 748
 \end{center}
 In the confusion matrix one can spot that the most common misclassifcations were mix ups of dog/cat, bird/plane, car/truck, horse/deer/frog which suggests the network might be relying on the background to some extent to classify. Perhaps if the training data also included images with the background extracted the networks could performance could be improved.
 
-The training of the network in PyTorch relied heavily on the AutoGrad which is PyTorch's automatic differentation engine. It keeps track of operations performed on the dataflow and knows the derivative of these events, when needed it can apply the chain rule to compute the partial derivative in question.
+The training of the network in PyTorch relied heavily on the AutoGrad which is PyTorch's automatic differentation engine. It keeps track of operations performed on the dataflow and knows the derivative of those events. When needed, it can apply the chain rule to compute the partial derivative in question.
 
 \section*{Section 2}
-RNN stand for Recursive Neural Network. The recursiveness comes from the fact that the part of the input into the network is the output from the last run. This allows the network to remember what was going on. RNN's are very useful in situations where something is happening over time and the network has to remember what has already happened. A good example of such a situation is working with text. A very important part of having a conversation or completing a sentence is remembering what has previously been said.
+RNN stand for Recursive Neural Network. The recursiveness comes from the fact that the part of the input into the network is the output from the last run. This allows the network to remember what was going on. RNN's are very useful in situations where something is happening over time and the network has to remember what has already happened. A good example of such a situation is working with text. A very important part of having a conversation or completing a sentence is remembering what has previously been said. Other use cases for RNNs are for example video analysis, speech recognition and sequence prediction.
 
 \\
-A RNN network was trained based on the example from Pytorch's tutorial. In my opinion the RNN model in Pytorch's example doen not perform very well. Although the made up names are usually phonetically viable, they usually do not sound like real names. 
+A RNN network was trained based on the example from Pytorch's tutorial. In my opinion the RNN model in Pytorch's example did not perform very well. Although the made up names are usually phonetically viable, they usually did not sound like real names.
+
+\newpage
 
 \section*{Independent Section}
 All icelandic given names were downloaded from \hyperlink{https://opingogn.is/dataset/mannanafnaskra/resource/27dc8c43-247e-4797-a603-87853637e038}{opinskra.is}. A short python program was written to parse the valid ones into a .txt file. The Name generation example was then run again and the output generated for Icelandic names was as follows:
@@ -108,7 +117,7 @@ All icelandic given names were downloaded from \hyperlink{https://opingogn.is/da
     \item Rimar
 \end{itemize}
 
-And to a native Icelandic speaker such as myself, none of those sound like an actual name except for the last one, which is indeed an Icelandic name.
+And to a native Icelandic speaker such as myself, none of those sound like an actual name except for the last one, Rimar, which fooled me, I had to look up that it is indeed not a name.
 
 \newpage
 \section*{Appendix}

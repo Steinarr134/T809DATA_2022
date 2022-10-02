@@ -89,7 +89,7 @@ It might be interesting to investigate what would be a good learning rate (\(\et
     \caption{Heatmap of accuracy, changing \(\eta\) and \(N\)}
     \label{fig:indep1}
 \end{figure}
-Interestingly, the best result, 100\% accuracy, happens when \(\eta=1.12\) and \(N=50\), It is not because those values somehow match a 'training frequency' causing the network to train very effectively. It is because the test set only has 29 samples. And for this particular split of the dataset,\(\eta=1.12\) and \(N=50\) just happens to get lucky and correctly guess every test sample correctly.
+Interestingly, the best result, 100\% accuracy, happens when \(\eta=1.12\) and \(N=50\), It is not because those values somehow match a 'training frequency' causing the network to train very effectively. It is because the test set only has 29 samples. And for this particular split of the dataset, \(\eta=1.12\) and \(N=50\) just happens to get lucky and correctly guess every test sample correctly.
 
 To confirm this, another for loop was implemented and the above calculation was done for 50 different splits of the dataset into test and train samples. The average of the 50 runs were plotted in a pseudocolor plot seen in Figure \ref{fig:indep50} and the Standard deviation of the 50 runs can be seen in Figure \ref{fig:indep50std}
 \begin{figure}[H]
