@@ -30,7 +30,7 @@ def _plot_linear_kernel(show=True):
     if show:
         plt.show()
 
-if __name__ == "_Q_main__":
+if __name__ == "__main__":
     _plot_linear_kernel(show=False)
     plt.gcf().set_figheight(6)
     plt.gcf().set_figwidth(9)
