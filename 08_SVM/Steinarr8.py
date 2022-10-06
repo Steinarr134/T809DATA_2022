@@ -43,7 +43,8 @@ def _subplot_svm_margin(
     X: np.ndarray,
     t: np.ndarray,
     num_plots: int,
-    index: int
+    index: int,
+    title=None
 ):
     '''
     Plots the decision boundary and decision margins
@@ -60,6 +61,8 @@ def _subplot_svm_margin(
     # index where num_plots should be the total number of plots
     # and index is the index of the current plot being generated
     plt.subplot(1, num_plots, index)
+    if title is not None:
+        plt.gca().title.set_text(title)
     plot_svm_margin(svc, X, t)
 
 
@@ -69,23 +72,23 @@ def _compare_gamma(show=True):
     clf = svm.SVC(C=1000, kernel="rbf")
     clf.fit(X,t)
     print(f"For default gamma, number of support vectors is: {clf.n_support_}")
-    _subplot_svm_margin(clf, X, t, 3, 1)
+    _subplot_svm_margin(clf, X, t, 3, 1, title="gamma=default")
 
     clf = svm.SVC(C=1000, kernel="rbf", gamma=0.2)
     clf.fit(X, t)
     print(f"For gamma=0.2, number of support vectors is: {clf.n_support_}")
-    _subplot_svm_margin(clf, X, t, 3, 2)
+    _subplot_svm_margin(clf, X, t, 3, 2, title="gamma=0.2")
 
 
     clf = svm.SVC(C=1000, kernel="rbf", gamma=2)
     clf.fit(X, t)
     print(f"For gamma=2, number of support vectors is: {clf.n_support_}")
-    _subplot_svm_margin(clf, X, t, 3, 3)
+    _subplot_svm_margin(clf, X, t, 3, 3, title="gamma=2")
 
     if show:
         plt.show()
 
-if __name__ == "_Q_main__":
+if __name__ == "__main__":
     _compare_gamma(show=False)
     plt.gcf().set_figheight(6)
     plt.gcf().set_figwidth(9)
@@ -101,11 +104,11 @@ def _compare_C(show=True):
         clf = svm.SVC(C=C, kernel="linear")
         clf.fit(X, t)
         print(f"For C={C}, number of support vectors is: {clf.n_support_}")
-        _subplot_svm_margin(clf, X, t, len(Cs), i+1)
+        _subplot_svm_margin(clf, X, t, len(Cs), i+1, title=f"{C=}")
     if show:
         plt.show()
 
-if __name__ == "_Q_main__":
+if __name__ == "__main__":
     _compare_C(False)
     plt.gcf().set_figheight(6)
     plt.gcf().set_figwidth(9)
@@ -113,8 +116,6 @@ if __name__ == "_Q_main__":
     plt.show()
 
         
-
-
 def train_test_SVM(
     svc,
     X_train: np.ndarray,
