@@ -47,16 +47,16 @@ def mvn_basis(
 if __name__ == "__main__":
     X, t = load_regression_iris()
     N, D = X.shape
-    M, sigma = 10, 10
+    M, sigma = 1000, 7.9
     mu = np.zeros((M, D))
     for i in range(D):
-        mmin = np.min(X[i, :])
-        mmax = np.max(X[i, :])
+        mmin = np.min(X[:, i])
+        mmax = np.max(X[:, i])
         mu[:, i] = np.linspace(mmin, mmax, M)
-    print(N, D, M)
-    print(mu)
+    # print(N, D, M)
+    # print(mu)
     fi = mvn_basis(X, mu, sigma)
-    print(fi)
+    # print(fi)
 
 def _plot_mvn():
     X, t = load_regression_iris()
@@ -97,9 +97,9 @@ def max_likelihood_linreg(
 
 if __name__ == "__main__":
     fi = mvn_basis(X, mu, sigma)  # same as before
-    lamda = 0.001
+    lamda = 0.00051
     wml = max_likelihood_linreg(fi, t, lamda)
-    print(wml)
+    # print(wml)
 
 
 def linear_model(
@@ -127,6 +127,71 @@ if __name__ == "__main__":
     wml = max_likelihood_linreg(fi, t, lamda)  # as before
     prediction = linear_model(X, mu, sigma, wml)
     print(prediction)
+    print(len(prediction), len(t))
+    plt.figure("sldk")
+    plt.plot(np.array(t), np.array(prediction), '.')
+    plt.plot([0, 2],[0,2])
+    plt.title("Predictions vs Actual value")
+    plt.ylabel("Predictions")
+    plt.xlabel("Actual Values")
+    plt.savefig("07_linear_models/plot_1_5.png")
+    # plt.figure("bars")
+    # plt.subplot(2, 1, 1)
+    # plt.hist(prediction)
+    # plt.subplot(2, 1, 2)
+    # plt.hist(t)
+    # plt.show()
+
+    def test(M, sigma):
+        mu = np.zeros((M, D))
+        for i in range(D):
+            mmin = np.min(X[:, i])
+            mmax = np.max(X[:, i])
+            mu[:, i] = np.linspace(mmin, mmax, M)
+        # print(N, D, M)
+        # print(mu)
+        fi = mvn_basis(X, mu, sigma)
+        lamda = 0.001
+        wml = max_likelihood_linreg(fi, t, lamda)
+        prediction = linear_model(X, mu, sigma, wml)
+        return np.square(np.subtract(prediction, t)).mean()
+    print(f"{test(1000, 7.9)=}")
+    Ms = np.array(np.round(np.logspace(1, 3)), np.int32)
+    sigmas = np.logspace(-1,2)
+    values = np.zeros((100, 100))
+    # for i in range(50):
+    #     for j in range(50):
+    #         print(i, j, Ms[i], sigmas[j])
+
+    #         values[i, j] = test(Ms[i], sigmas[j])
+    # with open("07_linear_models/results.npy", 'wb+') as f:
+    #     np.save(f, values)
+    
+    with open("07_linear_models/results.npy", 'rb') as f:
+        results = np.load(f)[:50, :50]
+
+    print(results)
+
+    fig, ax = plt.subplots()
+    X, Y = np.meshgrid(Ms, sigmas)
+    # c = ax.pcolormesh(Ms, sigmas, results, cmap='RdBu',
+    #                   vmin=0.04, vmax=0.07, shading="nearest")
+    cp = ax.contour(X, Y, results, np.hstack((np.logspace(-1.3, -1, 20)[:4], np.logspace(-1.2, 0.1, 10))))
+    ax.set_title(
+        'Contour plot of Mean-Square-Errror over \ndifferent combinations of sigma and M')
+
+    ax.set_xlabel("sigma")
+    ax.set_ylabel("M")
+
+    # set the limits of the plot to the limits of the data
+    # ax.axis([x.min(), x.max(), y.min(), y.max()])
+    fig.colorbar(cp, ax=ax)
+
+    print(Ms[results.argmin()//results.shape[1]],
+           [results.argmin() % results.shape[1]], "->", np.min(results))
+    plt.savefig("07_linear_models/indep1.png")
+    plt.show()
+    
 
 ### programing sectins done! NOw just need to answer section 1.5 with
 # some graphs and text in pdf and do soething for independent section
