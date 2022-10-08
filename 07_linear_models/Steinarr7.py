@@ -145,8 +145,8 @@ if __name__ == "__main__":
     def test(M, sigma):
         mu = np.zeros((M, D))
         for i in range(D):
-            mmin = np.min(X[:, i])
-            mmax = np.max(X[:, i])
+            mmin = np.min(X[i, :])
+            mmax = np.max(X[i, :])
             mu[:, i] = np.linspace(mmin, mmax, M)
         # print(N, D, M)
         # print(mu)
