@@ -173,7 +173,7 @@ if __name__ == "__main__":
     print(results)
 
     fig, ax = plt.subplots()
-    X, Y = np.meshgrid(Ms, sigmas)
+    X, Y = np.meshgrid(sigmas, Ms)
     # c = ax.pcolormesh(Ms, sigmas, results, cmap='RdBu',
     #                   vmin=0.04, vmax=0.07, shading="nearest")
     cp = ax.contour(X, Y, results, np.hstack((np.logspace(-1.3, -1, 20)[:4], np.logspace(-1.2, 0.1, 10))))
