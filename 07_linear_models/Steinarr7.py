@@ -47,7 +47,7 @@ def mvn_basis(
 if __name__ == "__main__":
     X, t = load_regression_iris()
     N, D = X.shape
-    M, sigma = 1000, 7.9
+    M, sigma = 100, 2
     mu = np.zeros((M, D))
     for i in range(D):
         mmin = np.min(X[:, i])
