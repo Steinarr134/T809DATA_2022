@@ -72,7 +72,7 @@
 \section*{Section 1.5}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{07_linear_models/plot_1_2.png}
+    \includegraphics[width=0.75\textwidth]{07_linear_models/plot_1_5_org.png}
     \caption{The Actual values plotted in a scatter plot against the predicted values.}
     \label{fig:section15}
 \end{figure}
@@ -80,11 +80,41 @@
 Figure \ref{fig:section15} shows the Actual values plotted against the predicted values. There is practically no correlation between them. 
 
 \section*{Independent}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{07_linear_models/plot_1_5_fixi.png}
+    \caption{The Actual values plotted in a scatter plot against the predicted values. After fixing the colomn/row mix up}
+    \label{fig:fixi}
+\end{figure}
 A fellow student, Sigurður Ágúst Jakobsson, pointed out on Piazza that we are mixing up columns and rows when finding the min and max of each feature. By fixing that we get a slightly better scatter plot as can be seen in Figure \ref{fig:fixi}. And a little bit of trial and error with changing \verb!M! and \verb!sigma!, gives the scatter plot in Figure \ref{fig:m100s2}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{07_linear_models/plot_1_5.png}
+    \caption{The Actual values plotted in a scatter plot against the predicted values. After choosing M=100 and sigma=2}
+    \label{fig:m100s2}
+\end{figure}
+
+
 
 In an effort to find the optimal values for \verb!M! and \verb!sigma! a for loop was written that goes through different value combinations and saves the Mean-Square-Error of each combination.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{07_linear_models/indep1.png}
+    \caption{Contour plot of the Mean-Square-Error of the predicted vs actual values with different combinations of M and sigma. Note that the values of the contour lines are not evenly spaced. }
+    \label{fig:indep1}
+\end{figure}
 
-The results were plotted in a contour plot 
+The results were plotted in a contour plot, seen in Figure \ref{fig:indep1}. The best performance was with \verb!M! $=1000$ and \verb!sigma! $=7.9$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{07_linear_models/plot_1_5_best.png}
+    \caption{The Actual values plotted in a scatter plot against the predicted values. with M=1000 and sigma=7.9}
+    \label{fig:final}
+\end{figure}
+
+
+A scatter plot of Actual vs Predicted values with \verb!M! $=1000$ and \verb!sigma! $=7.9$ was made and can be seen in Figure \ref{fig:final}
 
 \newpage
 \section*{Appendix}
