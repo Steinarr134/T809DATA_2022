@@ -14,6 +14,9 @@ def get_titanic():
     if os.path.exists('./data/train.csv'):
         train = pd.read_csv('./data/train.csv')
         test = pd.read_csv('./data/test.csv')
+    elif os.path.exists("10_boosting/data/train.csv"):
+        train = pd.read_csv('10_boosting/data/train.csv')
+        test = pd.read_csv('10_boosting/data/test.csv')
     else:
         train = pd.read_csv('train.csv')
         test = pd.read_csv('test.csv')
@@ -71,7 +74,7 @@ def build_kaggle_submission(prediction):
     kaggle compatible submission and save it to disk
     at ./data/your_submission.csv`.
     '''
-    test = pd.read_csv('./data/test.csv')
+    test = pd.read_csv('./10_boosting/data/test.csv')
     submission = pd.concat(
         [test.PassengerId, pd.DataFrame(prediction)],
         axis='columns')
