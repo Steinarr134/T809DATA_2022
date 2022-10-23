@@ -123,32 +123,9 @@ Looking at Figure \ref{fig:24} there does not seem to be a correlation between \
 
 This seems to be true for all three types of ensambles.
 
-
+\section{Section 3.1}
 
 \section*{Independent}
-A collection of monthly average weather observations in Reykjavík from 1949 to 2022 was collected from the Icelandic Meteorological Office's website. The objective being to train a classifier to guess the month based on Average weather observations. A short script was written to parse the values for Average Temperature, Average Pressure, Average Sun hours, Average Wind Speed and The number for the corresponding month. These were then parsed into a train test splitter. 
-
-A Support vector machine was trained on the training data and then made to predict the month from the test data. The Accuracy of the model was around 70\%. Here the confusion matrix can be seen:\\
-\\
-\begin{bmatrix}
-         &Jan. & Feb. & March & April & May & June & July & Aug. & Sept. & Oct. & Nov. & Dec.\\
-        January & 6 & 0 & 3 & 3 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-February & 0 & 11 & 0 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0\\
-March & 0 & 0 & 6 & 0 & 4 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-April & 1 & 0 & 0 & 15 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-May & 0 & 0 & 2 & 0 & 13 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
-June & 0 & 2 & 0 & 0 & 4 & 11 & 0 & 0 & 0 & 0 & 0 & 0\\
-July & 0 & 1 & 0 & 0 & 0 & 4 & 10 & 0 & 0 & 0 & 0 & 1\\
-August & 0 & 0 & 0 & 0 & 0 & 0 & 2 & 12 & 0 & 0 & 0 & 0\\
-September & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 8 & 0 & 0 & 2\\
-October & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 13 & 5 & 1\\
-November & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 2 & 10 & 5 & 0\\
-December & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 12
-        \end{bmatrix}
-\\
-\\
-\\
-More than half inaccuracies are only off by one month and, interestingly, the model seems to have had particular issues with classifying between October and November. 
 
 \newpage
 \section*{Appendix}
