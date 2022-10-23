@@ -133,7 +133,7 @@ if __name__ == "__main__":
 
 
           Accuracy was {cc.accuracy():.2%}\% , Precision was {cc.precision():.2%}\% , recall was {cc.recall():.2%}\% and cross validation accuracy was {cc.cross_validation_accuracy():.2%}\% . """.replace('[', '{').replace(']', '}'))
-    cc.feature_importance("09_random_forests/2_2_1.png")
+    # cc.feature_importance("09_random_forests/2_2_1.png")
     # quit()
 
 # """
@@ -237,13 +237,69 @@ def _plot_oob_error(save_as=None, smooth_fun=None):
         plt.savefig(save_as)
     plt.show()
 
-# if __name__ == "__main__":
-#     from scipy.ndimage import uniform_filter1d
-#     smoother = lambda y: uniform_filter1d(y, 5)
+if __name__ == "__main__":
+    from scipy.ndimage import uniform_filter1d
+    smoother = lambda y: uniform_filter1d(y, 5)
 #     _plot_oob_error("09_random_forests/2_4_1_smoothed.png", smooth_fun=smoother)
 
-def _plot_extreme_oob_error():
-    ...
+def _plot_extreme_oob_error(save_as=None, smooth_fun=None):
+    RANDOM_STATE = 1337
+    ensemble_clfs = [
+        ("RandomForestClassifier, max_features='sqrt'",
+            ExtraTreesClassifier(
+                n_estimators=100,
+                warm_start=True,
+                oob_score=True,
+                bootstrap=True,
+                max_features="sqrt",
+                random_state=RANDOM_STATE)),
+        ("RandomForestClassifier, max_features='log2'",
+            ExtraTreesClassifier(
+                n_estimators=100,
+                warm_start=True,
+                bootstrap=True,
+                max_features='log2',
+                oob_score=True,
+                random_state=RANDOM_STATE)),
+        ("RandomForestClassifier, max_features=None",
+            ExtraTreesClassifier(
+                n_estimators=100,
+                warm_start=True,
+                bootstrap=True,
+                max_features=None,
+                oob_score=True,
+                random_state=RANDOM_STATE))]
+
+    # Map a classifier name to a list of (<n_estimators>, <error rate>) pairs.
+    error_rate = OrderedDict((label, []) for label, _ in ensemble_clfs)
+
+    min_estimators = 30
+    max_estimators = 300
+    cancer = load_breast_cancer()
+    X = cancer.data  # all feature vectors
+    t = cancer.target  # all corresponding labels
+
+    for label, clf in ensemble_clfs:
+        for i in range(min_estimators, max_estimators + 1):
+            clf.set_params(n_estimators=i)
+            clf.fit(X, t)  # Use cancer data here
+            oob_error = 1 - clf.oob_score_
+            error_rate[label].append((i, oob_error))
+
+    # Generate the "OOB error rate" vs. "n_estimators" plot.
+    for label, clf_err in error_rate.items():
+        xs, ys = zip(*clf_err)
+        if smooth_fun is not None:
+            ys = smooth_fun(ys)
+        plt.plot(xs, ys, label=label)
+
+    plt.xlim(min_estimators, max_estimators)
+    plt.xlabel("n_estimators")
+    plt.ylabel("OOB error rate")
+    plt.legend(loc="upper right")
+    if save_as is not None:
+        plt.savefig(save_as)
+    plt.show()
 
 
 """Section 3"""
@@ -267,5 +323,7 @@ if __name__ == "__main__":
 
 
           Accuracy was {cc.accuracy():.2%}\% , Precision was {cc.precision():.2%}\% , recall was {cc.recall():.2%}\% and cross validation accuracy was {cc.cross_validation_accuracy():.2%}\% . """.replace('[', '{').replace(']', '}'))
-    cc.feature_importance("09_random_forests/2_1.png")
+    # cc.feature_importance("09_random_forests/3_1_1.png")
+
+    _plot_extreme_oob_error("09_random_forests/3_2_1.png", smooth_fun=smoother)
     
