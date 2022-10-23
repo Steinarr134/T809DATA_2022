@@ -245,7 +245,7 @@ if __name__ == "__main__":
 def _plot_extreme_oob_error(save_as=None, smooth_fun=None):
     RANDOM_STATE = 1337
     ensemble_clfs = [
-        ("RandomForestClassifier, max_features='sqrt'",
+        ("ExtraTreesClassifier, max_features='sqrt'",
             ExtraTreesClassifier(
                 n_estimators=100,
                 warm_start=True,
@@ -253,7 +253,7 @@ def _plot_extreme_oob_error(save_as=None, smooth_fun=None):
                 bootstrap=True,
                 max_features="sqrt",
                 random_state=RANDOM_STATE)),
-        ("RandomForestClassifier, max_features='log2'",
+        ("ExtraTreesClassifier, max_features='log2'",
             ExtraTreesClassifier(
                 n_estimators=100,
                 warm_start=True,
@@ -261,7 +261,7 @@ def _plot_extreme_oob_error(save_as=None, smooth_fun=None):
                 max_features='log2',
                 oob_score=True,
                 random_state=RANDOM_STATE)),
-        ("RandomForestClassifier, max_features=None",
+        ("ExtraTreesClassifier, max_features=None",
             ExtraTreesClassifier(
                 n_estimators=100,
                 warm_start=True,
@@ -322,7 +322,7 @@ if __name__ == "__main__":
           \end[center]
 
 
-          Accuracy was {cc.accuracy():.2%}\% , Precision was {cc.precision():.2%}\% , recall was {cc.recall():.2%}\% and cross validation accuracy was {cc.cross_validation_accuracy():.2%}\% . """.replace('[', '{').replace(']', '}'))
+          Accuracy was {cc.accuracy():.2%} , Precision was {cc.precision():.2%} , recall was {cc.recall():.2%} and cross validation accuracy was {cc.cross_validation_accuracy():.2%} . """.replace('[', '{').replace(']', '}').replace('%', '\%'))
     # cc.feature_importance("09_random_forests/3_1_1.png")
 
     _plot_extreme_oob_error("09_random_forests/3_2_1.png", smooth_fun=smoother)
