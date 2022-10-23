@@ -133,7 +133,7 @@ if __name__ == "__main__":
 
 
           Accuracy was {cc.accuracy():.2%}\% , Precision was {cc.precision():.2%}\% , recall was {cc.recall():.2%}\% and cross validation accuracy was {cc.cross_validation_accuracy():.2%}\% . """.replace('[', '{').replace(']', '}'))
-    # cc.feature_importance("09_random_forests/2_2_1.png")
+    cc.feature_importance("09_random_forests/2_2_1.png")
     # quit()
 
 # """
@@ -306,7 +306,7 @@ def _plot_extreme_oob_error(save_as=None, smooth_fun=None):
 if __name__ == "__main__":
     classifier_type = ExtraTreesClassifier()
     cc = CancerClassifier(classifier_type)
-    print("SEction 2")
+    print("SEction 3")
     print(f"{cc.confusion_matrix()=}")
     print(f"{cc.cross_validation_accuracy()=}")
     print(f"{cc.accuracy()=}")
@@ -325,5 +325,5 @@ if __name__ == "__main__":
           Accuracy was {cc.accuracy():.2%} , Precision was {cc.precision():.2%} , recall was {cc.recall():.2%} and cross validation accuracy was {cc.cross_validation_accuracy():.2%} . """.replace('[', '{').replace(']', '}').replace('%', '\%'))
     # cc.feature_importance("09_random_forests/3_1_1.png")
 
-    _plot_extreme_oob_error("09_random_forests/3_2_1.png", smooth_fun=smoother)
+    # _plot_extreme_oob_error("09_random_forests/3_2_1.png", smooth_fun=smoother)
     
