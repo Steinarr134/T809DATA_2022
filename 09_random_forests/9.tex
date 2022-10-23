@@ -51,7 +51,7 @@
 \begin{document}
 \maketitle
 \mycomment{
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{LAB3/Basic1.png}
     \caption{"Switch test" Breadboard set up}
@@ -100,7 +100,7 @@ The confusion matrix was:
 The best combination of hyperparameters found were \verb!n_estimators = 120! and \verb!max_features = 4!.
 
 \section*{Section 2.2}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{09_random_forests/2_2_1.png}
     \caption{}
@@ -111,7 +111,7 @@ The best combination of hyperparameters found were \verb!n_estimators = 120! and
 The most important feature was the 23rd feature, number 22, named \verb!compactness_worst!. The least important feature was the ninth feature, number 8, named \verb!symmetry_mean!
 
 \section*{Section 2.4}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{09_random_forests/2_4_1.png}
     \caption{The Out Of Bag error for different settings of parameters. The plots have been smoothed slightly using scipy's uniformfilter1d function, using n=5.}
@@ -124,6 +124,33 @@ Looking at Figure \ref{fig:24} there does not seem to be a correlation between \
 This seems to be true for all three types of ensambles.
 
 \section{Section 3.1}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{09_random_forests/3_1_1.png}
+    \caption{the Feature importance for Extremely Random Forest}
+    \label{fig:31}
+\end{figure}
+The confusion matrix was:
+
+          \begin{center}
+          CM= \begin{bmatrix}
+          58 & 5 
+          0  & 108 
+          \end{bmatrix}
+          \end{center}
+
+
+          Accuracy was 97.08\% , Precision was 95.58\% , recall was 100.00\% and cross validation accuracy was 97.01\% 
+
+
+
+\section{Section 3.2}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{09_random_forests/2_4_1.png}
+    \caption{The Out Of Bag error for different settings of parameters of Extremely Random Forest Classifier. The plots have been smoothed slightly using scipy's uniformfilter1d function, using n=5.}
+    \label{fig:32}
+\end{figure}
 
 \section*{Independent}
 
