@@ -133,11 +133,11 @@ if __name__ == "__main__":
 
 
           Accuracy was {cc.accuracy():.2%}\% , Precision was {cc.precision():.2%}\% , recall was {cc.recall():.2%}\% and cross validation accuracy was {cc.cross_validation_accuracy():.2%}\% . """.replace('[', '{').replace(']', '}'))
-    cc.feature_importance("09_random_forests/2_2_1.png")
+    # cc.feature_importance("09_random_forests/2_2_1.png")
     # quit()
 
 # """
-# Section 2
+# Section 
 # """
 # if __name__ == "__main__":
     # cancer = load_breast_cancer()

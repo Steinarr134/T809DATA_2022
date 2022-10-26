@@ -146,8 +146,8 @@ def gb_train_test(X_train, t_train, X_test, t_test):
         recall_score(t_test, predicted)
     )
 
-if __name__ == "__main__":
-    print(f"{gb_train_test(tr_X, tr_y, tst_X, tst_y)=}")
+# if __name__ == "__main__":
+#     print(f"{gb_train_test(tr_X, tr_y, tst_X, tst_y)=}")
 
 def param_search(X, y):
     '''
@@ -209,5 +209,12 @@ def _create_submission():
     prediction = gb.predict(submission_X)
     build_kaggle_submission(prediction)
 
+# if __name__ == "__main__":
+#     _create_submission()
+
 if __name__ == "__main__":
-    _create_submission()
+    from sklearn.svm import SVC
+    svm = SVC()
+    svm.fit(tr_X, tr_y)
+    predictions = svm.predict(tst_X)
+    print(accuracy_score(tst_y, predictions))
