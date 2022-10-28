@@ -202,22 +202,24 @@ def _plot_j(savename=None):
 
 def _plot_multi_j(savename=None):
     X, y, c = load_iris()
-    plt.figure(figsize=[6, 8])
+    # plt.figure(figsize=[6, 8])
     for i, k in enumerate([2, 3, 5, 10]):
         pMu, R, Js = k_means(X, k, 10)
-        plt.subplot(4, 1, i+1)
-        plt.plot(Js)
-        plt.title(str(k) + " classes", y=1.0, pad=-14)
-        plt.xlabel("Iterations")
-        plt.ylabel("J")
+        # plt.subplot(4, 1, i+1)
+        plt.plot(Js, label=f"{k} classes")
+        # plt.title(str(k) + " classes", y=1.0, pad=-14)
+    plt.xlabel("Iterations")
+    plt.ylabel("J")
+    plt.title("J for different number of classes")
+    plt.legend()
     if savename is not None:
         plt.savefig(savename)
     plt.show()
 
-# """Section 1.6 & 1.7"""
-# if __name__ == "__main__":
-#     _plot_j("11_k_means/1_6_1.png")
-#     _plot_multi_j("11_k_means/1_7_1.png")
+"""Section 1.6 & 1.7"""
+if __name__ == "__main__":
+    # _plot_j("11_k_means/1_6_1.png")
+    _plot_multi_j("11_k_means/1_7_1.png")
 
 def k_means_predict(
     X: np.ndarray,
@@ -255,18 +257,46 @@ def k_means_predict(
 
 def _iris_kmeans_accuracy():
     X, y, c = load_iris()
-    predictions = k_means_predict(X, y, c, 5)
+    predictions = k_means_predict(X, y, c, 3)
     correct = 0
     for i in range(y.shape[0]):
         if predictions[i] == y[i]:
             correct += 1
-    print("kmeans accuracy: ", correct/y.shape[0])
+    print("kmeans accuracy: ", accuracy_score(y, predictions))
+    print("kmeans confusion matrix: ", confusion_matrix(y, predictions))
+
+    def format_matrix(matrix, environment="bmatrix", formatter=str):
+        """Format a matrix using LaTeX syntax"""
+
+        if not isinstance(matrix, np.ndarray):
+            try:
+                matrix = np.array(matrix)
+            except Exception:
+                raise TypeError("Could not convert to Numpy array")
+
+        if len(shape := matrix.shape) == 1:
+            matrix = matrix.reshape(1, shape[0])
+        elif len(shape) > 2:
+            raise ValueError("Array must be 2 dimensional")
+
+        classes = ("0","1", "2")
+        body_lines = [classes[i] + " & " +
+                      " & ".join(map(formatter, row)) for i, row in enumerate(matrix)]
+
+        body = "\\\\\n".join(body_lines)
+        return f"""\\begin{{{environment}}}
+        {"(empty) &" + " & ".join(classes)}\\\\
+        {body}
+        \\end{{{environment}}}"""
+
+    print(format_matrix(confusion_matrix(y, predictions)))
 
 """Section 1.9 & 1.10"""
 if __name__ == "__main__":
     X, y, c = load_iris()
     print(c)
     print(f"{k_means_predict(X, y, c, 5)=}")
+
     _iris_kmeans_accuracy()
 
 def _my_kmeans_on_image():
