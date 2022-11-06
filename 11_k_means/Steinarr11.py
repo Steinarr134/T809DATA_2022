@@ -217,9 +217,9 @@ def _plot_multi_j(savename=None):
     plt.show()
 
 """Section 1.6 & 1.7"""
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # _plot_j("11_k_means/1_6_1.png")
-    _plot_multi_j("11_k_means/1_7_1.png")
+    # _plot_multi_j("11_k_means/1_7_1.png")
 
 def k_means_predict(
     X: np.ndarray,
