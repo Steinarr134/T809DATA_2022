@@ -51,7 +51,7 @@
 \begin{document}
 \maketitle
 \mycomment{
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{LAB3/Basic1.png}
     \caption{"Switch test" Breadboard set up}
@@ -71,21 +71,55 @@
 \end{figure}
 
 \section*{Section 1.7}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{11_k_means/1_7_1.png}
     \caption{J plotted by iterations for different number of classes}
-    \label{fig:16}
+    \label{fig:17}
 \end{figure}
 
 \section*{Section 1.8}
-On Figure \ref{fig:17} we can see that the 3 classes properly train after only 1 iteration while the others take a few iterations to reach a stable solution suggesting that 3 classes best fit the data set.
+On Figure \ref{fig:17} we can see that using 10 classes better minimizes the objective function J.
 
-The value of J, average distance from each datapoint to its classification prototype, gets smaller as we increase the classes. That is not because we are getting better results but rather simply because more prototypes occupy the same feature space thus decreasing the average distance.\\
+The value of the objective funstion is calculated as the average distance from each datapoint to its classification prototype. And it gets smaller as we increase the classes. That is not because we are getting better results but rather simply because more prototypes occupy the same limited feature space thus decreasing the average distance.\\
 
-If we were to set $k=n$ each prototype would be initialized as a data point and of course none of them would change since they are all closer to themselves rather then any other point. Choosing $k=n$ is not a good strategy since it would result in each point classified in its own class which is, frankly, an utterly useless classification.
+If we were to set $k=n$, each prototype would be initialized as a unique data point and of course none of them would change since they are all closer to themselves rather then any other point. Choosing $k=n$ would however result in $J=0$ but is not a good strategy since it would result in each point classified in its own class which is, frankly, an utterly useless classification.
 
+\section*{Section 1.10}
+Training the K-means model with $k=3$ results in Accuracy$=82.67\%$ and Confusion matrix:
+\\
+CM = 
+\begin{bmatrix}
+         50 & 0 & 0\\
+         0 & 42 & 8\\
+         0 & 18 & 32
+        \end{bmatrix}
+\section*{Section 2.1}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{11_k_means/2_1_1.png}
+    \caption{K means applied to cluster an image based on color, using k=2}
+    \label{fig:211}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{11_k_means/2_1_2.png}
+    \caption{K means applied to cluster an image based on color, using k=5}
+    \label{fig:212}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{11_k_means/2_1_3.png}
+    \caption{K means applied to cluster an image based on color, using k=10}
+    \label{fig:213}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{11_k_means/2_1_4.png}
+    \caption{K means applied to cluster an image based on color, using k=20}
+    \label{fig:214}
+\end{figure}
 
-
+    
 \end{document}
 
